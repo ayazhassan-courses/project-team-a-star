@@ -21,20 +21,9 @@ maze = [["_", "_", "_", "_", "|", "_", "_", "_", "_", "_"],
         ["_", "_", "_", "_", "|", "_", "_", "_", "_", "_"],
         ["_", "_", '_', "_", "|", "_", "_", "_", "_", "_"],
         ["_", "_", '_', "_", "|", "_", "_", "_", "_", "_"]]
-start_lst = []
-end_lst = []
-n = 2
-for i in range(n):
-    temp = (int(input("Enter starting point: ")))
-    start_lst.append(temp)
 
-for x in range(n):
-    temp = (int(input("Enter ending point: ")))
-    end_lst.append(temp)
-
-start = tuple(start_lst)
-end = tuple(end_lst)
-      
+start = (0,0)
+end = (7,6)
 def astar(maze, start, end):
 
     start_node = Node(None, start)
@@ -89,17 +78,12 @@ def astar(maze, start, end):
 
         for child in children:
 
-            for closed_child in closed_list:
-                if child == closed_child:
-                    continue
+            if child in closed_list:
+                continue
 
             child.g = current_node.g + 1
             child.h = (((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2))**0.5
             child.f = child.g + child.h
-
-            for open_node in open_list:
-                if child == open_node and child.g > open_node.g:
-                    continue
 
             open_list.append(child)
     if flag == True:
